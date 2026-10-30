@@ -3,11 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
 <meta name="theme-color" content="#8cdcef">
-<meta name="description" content="Flappy Plane — a tiny jet adventure between glass skyscrapers.">
-<title>Flappy Plane</title>
+<meta name="author" content="1C Paco Au Yeung, 1C Max Chan">
+<meta name="description" content="A student-built bilingual arcade flight. Guide a 303-liveried twinjet through glass skyscrapers, chase medals and beat your personal best.">
+<title>Flappy Plane — A Tiny Flight Adventure</title>
+<link rel="canonical" href="https://s20260002-rgb.github.io/flappy_plane/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Flappy Plane">
+<meta property="og:title" content="Flappy Plane — A Tiny Flight Adventure">
+<meta property="og:description" content="A student-built bilingual arcade flight. Guide a 303-liveried twinjet through glass skyscrapers, chase medals and beat your personal best.">
+<meta property="og:url" content="https://s20260002-rgb.github.io/flappy_plane/">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flappy Plane — A Tiny Flight Adventure">
+<meta name="twitter:description" content="A student-built bilingual arcade flight through glass skyscrapers.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%238cdcef'/%3E%3Cpath d='M14 58 48 46 84 50 90 57 54 60 38 82 28 82 37 62 16 69Z' fill='%23f8fcfb' stroke='%231a3140' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M48 46 55 32 66 49Z' fill='%231d4f72' stroke='%231a3140' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M54 60 57 73 48 73Z' fill='%231d4f72' stroke='%231a3140' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>
+  document.documentElement.classList.add("js");
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Flappy Plane",
+  "alternateName": "Flappy Plane 303",
+  "url": "https://s20260002-rgb.github.io/flappy_plane/",
+  "description": "A student-built bilingual arcade flight. Guide a 303-liveried twinjet through glass skyscrapers, chase medals and beat your personal best.",
+  "genre": ["Arcade", "Casual"],
+  "gamePlatform": "Web browser",
+  "applicationCategory": "Game",
+  "operatingSystem": "Any modern browser",
+  "inLanguage": ["en", "zh-Hant"],
+  "isAccessibleForFree": true,
+  "creator": [
+    {"@type": "Person", "name": "1C Paco Au Yeung"},
+    {"@type": "Person", "name": "1C Max Chan"}
+  ],
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
 <style>
+
   :root {
     --ink: #153f35;
     --ink-deep: #0c2e26;
@@ -346,7 +383,8 @@
     opacity: .85;
   }
 
-  .brand h1 {
+  .brand h1,
+  .brand-title {
     margin: 2.2cqw 0 0;
     font-family: var(--font-display);
     font-weight: 900;
@@ -895,17 +933,1342 @@
       border-radius: 20px;
     }
   }
+
+
+/* ==========================================================================
+   Marketing site shell — layered on top of the original game component.
+   ========================================================================== */
+
+:root {
+  --site-bg: #fbf7ec;
+  --site-surface: #fffdf6;
+  --site-ink: #102f28;
+  --site-muted: #587068;
+  --site-green: #153f35;
+  --site-green-2: #1d5a49;
+  --site-teal: #2b7b70;
+  --site-sky: #9fe3f0;
+  --site-gold: #f4c34e;
+  --site-gold-soft: #ffe7a4;
+  --site-coral: #ee6b4a;
+  --site-line: rgba(16, 47, 40, .13);
+  --site-line-strong: rgba(16, 47, 40, .22);
+  --site-radius: 28px;
+  --site-shadow: 0 24px 60px -28px rgba(16, 47, 40, .32);
+  --site-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Songti TC", "Noto Serif TC", Georgia, serif;
+}
+
+html { height: auto; scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+body {
+  display: block;
+  height: auto;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--site-bg);
+  color: var(--site-ink);
+  font-family: var(--font-body);
+}
+
+body::before { content: none; }
+
+::selection { background: var(--site-gold); color: var(--site-ink); }
+
+a { color: inherit; text-decoration: none; }
+
+button { cursor: pointer; }
+
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #b87910;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.site-shell { position: relative; z-index: 1; }
+
+.container {
+  width: min(1180px, calc(100% - 64px));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: fixed;
+  left: 20px;
+  top: -80px;
+  z-index: 999;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: var(--site-green);
+  color: var(--cream);
+  font-weight: 800;
+  transition: top .2s ease;
+}
+.skip-link:focus { top: 16px; }
+
+/* ------------------------------------------------------------------ header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  border-bottom: 1px solid transparent;
+  background: rgba(251, 247, 236, .78);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  backdrop-filter: blur(18px) saturate(1.15);
+  transition: box-shadow .25s ease, border-color .25s ease, background .25s ease;
+}
+.site-header.is-scrolled {
+  border-color: var(--site-line);
+  background: rgba(251, 247, 236, .94);
+  box-shadow: 0 12px 32px -24px rgba(16, 47, 40, .3);
+}
+
+.nav-row {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+.site-brand-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--site-green);
+  color: var(--site-gold);
+  box-shadow: 0 8px 20px -10px rgba(16, 47, 40, .5);
+}
+.site-brand-mark svg { width: 26px; height: 26px; }
+.site-brand-text { white-space: nowrap; }
+.site-brand-text strong { color: var(--site-teal); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-inline: auto;
+}
+.nav-links a {
+  position: relative;
+  padding: 6px 0;
+  color: var(--site-muted);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  transition: color .2s ease;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--site-gold);
+  transition: right .22s ease;
+}
+.nav-links a:hover { color: var(--site-green); }
+.nav-links a:hover::after { right: 0; }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.lang-switch {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--site-line);
+  border-radius: 999px;
+  background: rgba(255, 253, 246, .7);
+}
+.lang-btn {
+  min-width: 39px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--site-muted);
+  font-size: 11.5px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  transition: background .2s ease, color .2s ease;
+}
+.lang-btn.is-active { background: var(--site-green); color: var(--cream); }
+.lang-btn:not(.is-active):hover { color: var(--site-green); }
+
+.nav-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: var(--site-green);
+  color: var(--cream);
+  font-size: 12.5px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  box-shadow: 0 8px 20px -12px rgba(16, 47, 40, .55);
+  transition: transform .18s ease, background .18s ease;
+}
+.nav-play:hover { background: var(--site-green-2); transform: translateY(-1px); }
+.nav-play svg { width: 15px; height: 15px; }
+
+.menu-toggle {
+  display: none;
+  position: relative;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--site-line);
+  border-radius: 50%;
+  background: rgba(255, 253, 246, .7);
+  color: var(--site-green);
+  place-items: center;
+}
+.menu-toggle span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: 16px;
+  height: 2px;
+  margin: 0;
+  border-radius: 2px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform .2s ease, opacity .2s ease;
+}
+.menu-toggle span:nth-child(1) { transform: translate(-50%, -6px); }
+.menu-toggle span:nth-child(2) { transform: translate(-50%, 0); }
+.menu-toggle span:nth-child(3) { transform: translate(-50%, 6px); }
+.site-header.menu-open .menu-toggle span:nth-child(1) { transform: translate(-50%, 0) rotate(45deg); }
+.site-header.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+.site-header.menu-open .menu-toggle span:nth-child(3) { transform: translate(-50%, 0) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  width: min(1180px, calc(100% - 64px));
+  margin: 0 auto 16px;
+  padding: 14px;
+  border: 1px solid var(--site-line);
+  border-radius: 22px;
+  background: var(--site-surface);
+  box-shadow: var(--site-shadow);
+}
+.mobile-menu nav { display: grid; gap: 2px; }
+.mobile-menu a {
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: var(--site-ink);
+  font-size: 14px;
+  font-weight: 800;
+}
+.mobile-menu a:hover { background: rgba(16, 47, 40, .055); }
+.mobile-menu .mobile-play {
+  width: 100%;
+  justify-content: center;
+  margin-top: 8px;
+}
+.site-header.menu-open .mobile-menu { display: block; animation: menu-in .2s ease both; }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+/* -------------------------------------------------------------------- hero */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(48px, 6vw, 78px) 0 clamp(72px, 9vw, 112px);
+  background:
+    radial-gradient(60vw 42vw at 83% 4%, rgba(255, 220, 126, .7), transparent 64%),
+    radial-gradient(44vw 34vw at 0% 40%, rgba(161, 227, 216, .35), transparent 70%),
+    linear-gradient(180deg, #dff6ff 0%, #eefbf6 48%, #fbf7ec 100%);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 24%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(251, 247, 236, 0) 0%, var(--site-bg) 92%);
+}
+.hero-sun {
+  position: absolute;
+  width: min(38vw, 480px);
+  aspect-ratio: 1;
+  right: -7%;
+  top: -16%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #fff8cb 0 24%, #ffe99b 56%, rgba(255, 232, 155, 0) 72%);
+  opacity: .85;
+  pointer-events: none;
+}
+.hero-cloud {
+  position: absolute;
+  height: 48px;
+  width: 190px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .55);
+  pointer-events: none;
+  filter: blur(.3px);
+  animation: cloud-drift 22s ease-in-out infinite alternate;
+}
+.hero-cloud::before,
+.hero-cloud::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: inherit;
+}
+.hero-cloud::before { width: 78px; height: 78px; left: 24px; top: -36px; }
+.hero-cloud::after { width: 56px; height: 56px; right: 28px; top: -24px; }
+.cloud-one { left: 4%; top: 16%; opacity: .52; transform: scale(.8); animation-delay: -8s; }
+.cloud-two { right: 18%; top: 8%; opacity: .38; transform: scale(.62); animation-delay: -15s; }
+.cloud-three { left: 38%; top: 3%; opacity: .28; transform: scale(.5); animation-delay: -4s; }
+@keyframes cloud-drift { from { translate: 0 0; } to { translate: 28px 7px; } }
+
+.hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(320px, .78fr);
+  align-items: center;
+  gap: clamp(36px, 6vw, 84px);
+}
+.hero-copy { max-width: 660px; }
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 7px 12px 7px 10px;
+  border: 1px solid rgba(21, 63, 53, .12);
+  border-radius: 999px;
+  background: rgba(255, 253, 246, .68);
+  color: var(--site-green-2);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.kicker-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--site-coral);
+  box-shadow: 0 0 0 4px rgba(238, 107, 74, .12);
+}
+.kicker-tag {
+  margin-left: 2px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--site-gold-soft);
+  color: #805515;
+  font-size: 9.5px;
+  letter-spacing: .1em;
+}
+
+.hero-title {
+  margin: 24px 0 22px;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6.1vw, 5.7rem);
+  font-weight: 900;
+  line-height: .93;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+.hero-title span { display: block; }
+.hero-title .accent {
+  display: inline;
+  width: auto;
+  max-width: none;
+  color: var(--site-green);
+  background: linear-gradient(180deg, transparent 62%, rgba(244, 195, 78, .52) 62%, rgba(244, 195, 78, .52) 89%, transparent 89%);
+  padding: 0 .03em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.hero-lede {
+  max-width: 560px;
+  margin: 0;
+  color: var(--site-muted);
+  font-size: clamp(16px, 1.35vw, 18.5px);
+  line-height: 1.75;
+  font-weight: 500;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--site-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.hero-facts li { display: inline-flex; align-items: center; gap: 7px; }
+.fact-tick {
+  width: 17px;
+  height: 17px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(43, 123, 112, .15);
+  color: var(--site-teal);
+}
+.fact-tick svg { width: 10px; height: 10px; }
+.hero-byline {
+  margin: 30px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(16, 47, 40, .12);
+  color: var(--site-muted);
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+.hero-byline strong { color: var(--site-green); font-weight: 900; }
+
+/* Site-level buttons */
+.site-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 13px 23px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 900;
+  letter-spacing: .025em;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+}
+.site-btn svg { width: 17px; height: 17px; transition: transform .2s ease; }
+.site-btn:hover svg { transform: translateX(2px); }
+.site-btn:hover { transform: translateY(-2px); }
+.site-btn.primary {
+  background: var(--site-green);
+  color: var(--cream);
+  box-shadow: 0 12px 24px -14px rgba(16, 47, 40, .6);
+}
+.site-btn.primary:hover { background: var(--site-green-2); box-shadow: 0 16px 28px -14px rgba(16, 47, 40, .55); }
+.site-btn.secondary {
+  border-color: var(--site-line-strong);
+  background: rgba(255, 253, 246, .58);
+  color: var(--site-green);
+}
+.site-btn.secondary:hover { background: var(--site-surface); }
+
+/* Live demo card */
+.hero-demo {
+  justify-self: end;
+  width: min(100%, 430px);
+  position: relative;
+  z-index: 1;
+}
+.hero-demo::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 118%;
+  aspect-ratio: 1;
+  left: 50%;
+  top: 48%;
+  translate: -50% -50%;
+  border: 1px solid rgba(21, 63, 53, .13);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.demo-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 11px;
+  color: var(--site-muted);
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px;
+  border: 1px solid rgba(21, 63, 53, .14);
+  border-radius: 999px;
+  background: rgba(255, 253, 246, .7);
+  color: var(--site-green);
+}
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2eaa76;
+  box-shadow: 0 0 0 4px rgba(46, 170, 118, .12);
+  animation: live-pulse 2.2s ease-in-out infinite;
+}
+@keyframes live-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+.demo-hint { color: rgba(21, 63, 53, .54); letter-spacing: .06em; font-weight: 700; }
+.demo-expand {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 1px solid rgba(21, 63, 53, .14);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--site-green);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  transition: background .2s ease;
+}
+.demo-expand:hover { background: rgba(255, 253, 246, .8); }
+.demo-expand svg { width: 13px; height: 13px; }
+
+.game-frame {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, .8);
+  border-radius: 36px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, .88), rgba(255, 242, 207, .66));
+  box-shadow:
+    0 35px 70px -28px rgba(16, 47, 40, .5),
+    0 16px 30px -22px rgba(16, 47, 40, .34),
+    inset 0 1px 0 rgba(255, 255, 255, .95);
+  transition: box-shadow .3s ease, transform .3s ease;
+}
+.game-frame:hover { box-shadow: 0 42px 78px -28px rgba(16, 47, 40, .52), 0 18px 34px -22px rgba(16, 47, 40, .36), inset 0 1px 0 #fff; }
+.game-frame .game {
+  width: 100%;
+  max-width: none;
+  border-radius: 27px;
+  box-shadow: 0 15px 32px -24px rgba(8, 55, 47, .45);
+}
+.game-frame .game:focus-visible { outline: 3px solid var(--site-gold); outline-offset: 5px; }
+.fullscreen-exit {
+  display: none;
+  position: absolute;
+  z-index: 70;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .4);
+  border-radius: 50%;
+  background: rgba(9, 38, 33, .72);
+  color: #fff9e9;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.fullscreen-exit svg { width: 17px; height: 17px; }
+.game-frame:fullscreen {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(55vmax 55vmax at 80% 10%, rgba(255, 231, 164, .55), transparent 60%),
+    linear-gradient(155deg, #102f28, #1a4b3f 54%, #0e2b25);
+  box-shadow: none;
+}
+.game-frame:fullscreen .game {
+  width: min(100vw, calc(100dvh * .6));
+  border-radius: 0;
+  box-shadow: none;
+}
+.game-frame:fullscreen .fullscreen-exit { display: grid; }
+.demo-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 11px;
+  color: var(--site-muted);
+  font-size: 11px;
+  font-weight: 650;
+}
+.demo-best { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.demo-best strong { color: var(--site-green); font-family: var(--font-display); font-size: 15px; }
+
+/* ------------------------------------------------------------------ sections */
+
+.section { position: relative; padding: clamp(76px, 9vw, 120px) 0; }
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 16px;
+  color: var(--site-teal);
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.section-kicker::before {
+  content: "";
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--site-gold);
+}
+.section-title {
+  max-width: 790px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+.section-copy {
+  max-width: 640px;
+  margin: 18px 0 0;
+  color: var(--site-muted);
+  font-size: 16.5px;
+  line-height: 1.8;
+}
+.section-head { margin-bottom: clamp(34px, 5vw, 54px); }
+
+/* Statement */
+.statement { background: var(--site-surface); border-block: 1px solid var(--site-line); }
+.statement-grid {
+  display: grid;
+  grid-template-columns: minmax(150px, .35fr) minmax(0, 1fr);
+  gap: clamp(28px, 6vw, 100px);
+  align-items: start;
+}
+.statement .section-kicker { margin-top: 8px; }
+.statement-title {
+  max-width: 850px;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.04em;
+}
+.statement-title em { color: var(--site-teal); font-style: italic; }
+.statement-body { max-width: 700px; margin: 24px 0 0; color: var(--site-muted); font-size: 17px; line-height: 1.85; }
+
+/* Features */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.feature-card {
+  position: relative;
+  min-height: 230px;
+  padding: 26px 25px 24px;
+  border: 1px solid var(--site-line);
+  border-radius: 24px;
+  background: rgba(255, 253, 246, .72);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .7) inset;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(21, 63, 53, .23);
+  background: var(--site-surface);
+  box-shadow: 0 22px 40px -32px rgba(16, 47, 40, .33);
+}
+.feature-index {
+  position: absolute;
+  right: 23px;
+  top: 23px;
+  color: rgba(21, 63, 53, .26);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+.feature-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 26px;
+  border-radius: 15px;
+  background: rgba(43, 123, 112, .12);
+  color: var(--site-teal);
+}
+.feature-icon.gold { background: rgba(244, 195, 78, .22); color: #9d6a0d; }
+.feature-icon.coral { background: rgba(238, 107, 74, .13); color: var(--site-coral); }
+.feature-icon svg { width: 23px; height: 23px; }
+.feature-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+}
+.feature-card p { margin: 0; color: var(--site-muted); font-size: 13.5px; line-height: 1.7; }
+
+/* How to play */
+.how-section {
+  background:
+    radial-gradient(48vw 36vw at 10% 20%, rgba(255, 255, 255, .55), transparent 70%),
+    linear-gradient(180deg, #e9f8f1, #f6fbf4);
+  border-block: 1px solid rgba(16, 47, 40, .07);
+}
+.how-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, .88fr);
+  gap: clamp(36px, 6vw, 82px);
+  align-items: center;
+}
+.steps { display: grid; gap: 0; margin-top: 34px; }
+.step {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 22px 0;
+  border-top: 1px solid rgba(16, 47, 40, .12);
+}
+.step:last-child { border-bottom: 1px solid rgba(16, 47, 40, .12); }
+.step-number {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--site-green);
+  color: var(--site-gold);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 900;
+}
+.step h3 { margin: 2px 0 5px; font-family: var(--font-display); font-size: 17px; font-weight: 900; }
+.step p { margin: 0; color: var(--site-muted); font-size: 13.5px; line-height: 1.7; }
+.controls-card {
+  margin-top: 28px;
+  padding: 18px 20px;
+  border: 1px solid rgba(16, 47, 40, .12);
+  border-radius: 18px;
+  background: rgba(255, 253, 246, .55);
+}
+.controls-title {
+  margin: 0 0 12px;
+  color: var(--site-green);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.control-row { display: flex; flex-wrap: wrap; gap: 12px 22px; }
+.control { display: inline-flex; align-items: center; gap: 8px; color: var(--site-muted); font-size: 12px; font-weight: 700; }
+.key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 25px;
+  padding: 0 7px;
+  border: 1px solid rgba(16, 47, 40, .2);
+  border-bottom-width: 3px;
+  border-radius: 7px;
+  background: var(--site-surface);
+  color: var(--site-green);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .03em;
+}
+
+.flight-art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 4.7;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .9);
+  border-radius: 30px;
+  background: linear-gradient(180deg, #8fdef0 0%, #c4eff0 54%, #ffe9bc 100%);
+  box-shadow: 0 32px 60px -34px rgba(16, 47, 40, .48), inset 0 1px 0 rgba(255, 255, 255, .6);
+}
+.flight-art::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 15%;
+  background: linear-gradient(180deg, transparent, rgba(21, 63, 53, .1));
+}
+.art-sun {
+  position: absolute;
+  width: 30%;
+  aspect-ratio: 1;
+  right: 8%;
+  top: 9%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff9c8 0 38%, rgba(255, 238, 155, .55) 60%, transparent 72%);
+}
+.art-cloud {
+  position: absolute;
+  width: 26%;
+  height: 8%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .58);
+}
+.art-cloud::before, .art-cloud::after { content: ""; position: absolute; border-radius: 50%; background: inherit; }
+.art-cloud::before { width: 55%; aspect-ratio: 1; left: 16%; bottom: 20%; }
+.art-cloud::after { width: 38%; aspect-ratio: 1; right: 14%; bottom: 24%; }
+.art-cloud.c1 { left: 12%; top: 20%; transform: scale(.86); opacity: .75; }
+.art-cloud.c2 { right: 8%; top: 35%; transform: scale(.62); opacity: .5; }
+.flight-tower {
+  position: absolute;
+  width: 29%;
+  border: 2px solid #173f4b;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 214, 137, .95) 0 2.6px, transparent 3.4px) 8px 12px / 23px 26px,
+    linear-gradient(90deg, #12333f, #245b6c 38%, #1a4757 72%, #102e3a);
+  box-shadow: 8px 14px 24px -16px rgba(8, 33, 42, .75);
+}
+.flight-tower::before {
+  content: "";
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  height: 16px;
+  border: 2px solid #173f4b;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #f7e9c6, #c7aa76);
+}
+.flight-tower.top { left: 47%; top: -2%; height: 43%; }
+.flight-tower.top::before { bottom: -8px; }
+.flight-tower.bottom { left: 47%; bottom: -1%; height: 38%; }
+.flight-tower.bottom::before { top: -8px; }
+.flight-tower::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(126, 232, 233, .6);
+}
+.flight-tower.top::after { bottom: 12px; }
+.flight-tower.bottom::after { top: 12px; }
+.art-tower-back {
+  position: absolute;
+  width: 18%;
+  left: 12%;
+  bottom: -2%;
+  height: 33%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(26, 71, 87, .55), rgba(26, 71, 87, .32));
+}
+.art-tower-back::before {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  top: 15%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(255, 214, 137, .52) 0 2px, transparent 2.6px) 0 0 / 17px 21px;
+}
+.flight-path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.art-plane {
+  position: absolute;
+  width: 18%;
+  left: 23%;
+  top: 55%;
+  transform: rotate(-17deg);
+  filter: drop-shadow(0 10px 14px rgba(13, 49, 63, .24));
+}
+.art-plane svg { width: 100%; height: auto; display: block; }
+.art-caption {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 5%;
+  z-index: 3;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, .36);
+  border-radius: 12px;
+  background: rgba(9, 39, 40, .55);
+  color: #fff9e8;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .04em;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* Craft */
+.craft-panel {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(310px, .75fr);
+  gap: clamp(32px, 6vw, 76px);
+  padding: clamp(34px, 6vw, 70px);
+  border-radius: 34px;
+  background:
+    radial-gradient(60vw 40vw at 95% 0%, rgba(244, 195, 78, .16), transparent 60%),
+    radial-gradient(40vw 40vw at 0% 100%, rgba(98, 190, 169, .16), transparent 65%),
+    linear-gradient(145deg, #102f28, #173f35 58%, #0d2822);
+  color: var(--cream);
+  box-shadow: 0 40px 80px -42px rgba(12, 42, 34, .65);
+}
+.craft-panel .section-kicker { color: #9edbcc; }
+.craft-panel .section-kicker::before { background: var(--site-gold); }
+.craft-title { max-width: 520px; margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: 1.05; letter-spacing: -.04em; }
+.craft-body { max-width: 550px; margin: 18px 0 0; color: rgba(255, 249, 233, .65); font-size: 15px; line-height: 1.8; }
+.craft-list { display: grid; gap: 13px; margin: 28px 0 0; padding: 0; list-style: none; }
+.craft-list li { display: flex; gap: 10px; color: rgba(255, 249, 233, .82); font-size: 13px; line-height: 1.55; }
+.craft-list svg { width: 17px; height: 17px; flex: 0 0 auto; margin-top: 1px; color: var(--site-gold); }
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-content: center; }
+.metric {
+  min-height: 138px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .055);
+}
+.metric-value { color: var(--site-gold); font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.1rem); font-weight: 900; line-height: 1; letter-spacing: -.04em; }
+.metric-label { color: rgba(255, 249, 233, .56); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+
+/* Team */
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.person-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 30px;
+  border: 1px solid var(--site-line);
+  border-radius: 26px;
+  background: var(--site-surface);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+}
+.person-card::after {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: -90px;
+  bottom: -120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 195, 78, .18), transparent 68%);
+}
+.person-avatar {
+  width: 70px;
+  height: 70px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #e2f4ee, #f9edd0);
+  color: var(--site-green);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -.03em;
+  border: 1px solid rgba(16, 47, 40, .1);
+}
+.person-card:nth-child(2) .person-avatar { background: linear-gradient(145deg, #ffe7b4, #ffd0bd); }
+.person-info { position: relative; z-index: 1; }
+.person-info h3 { margin: 0 0 5px; font-family: var(--font-display); font-size: 21px; font-weight: 900; letter-spacing: -.025em; }
+.person-meta { margin: 0; color: var(--site-muted); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.person-class { display: inline-flex; margin-top: 16px; padding: 4px 9px; border-radius: 999px; background: rgba(43, 123, 112, .1); color: var(--site-teal); font-size: 10px; font-weight: 900; letter-spacing: .1em; }
+.team-quote {
+  grid-column: 1 / -1;
+  margin: 18px 0 0;
+  padding: 30px 4px 0;
+  border-top: 1px solid var(--site-line);
+  color: var(--site-green);
+  font-family: var(--site-serif);
+  font-size: clamp(1.5rem, 2.7vw, 2.25rem);
+  font-style: italic;
+  line-height: 1.3;
+  letter-spacing: -.02em;
+}
+.team-quote footer { margin-top: 12px; color: var(--site-muted); font-family: var(--font-body); font-size: 11px; font-style: normal; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+
+/* FAQ */
+.faq-section { background: var(--site-surface); border-block: 1px solid var(--site-line); }
+.faq-grid { display: grid; grid-template-columns: minmax(180px, .36fr) minmax(0, 1fr); gap: clamp(30px, 6vw, 100px); align-items: start; }
+.faq-list { border-top: 1px solid var(--site-line-strong); }
+.faq-item { border-bottom: 1px solid var(--site-line-strong); }
+.faq-item summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 34px 20px 0;
+  color: var(--site-green);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: -.01em;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--site-line-strong);
+  border-radius: 50%;
+  color: var(--site-green);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+  transition: rotate .2s ease, background .2s ease;
+}
+.faq-item[open] summary::after { rotate: 45deg; background: rgba(244, 195, 78, .22); }
+.faq-answer { padding: 0 46px 22px 0; color: var(--site-muted); font-size: 13.5px; line-height: 1.8; }
+.faq-answer p { margin: 0; }
+
+/* Final CTA */
+.final-cta { padding: clamp(60px, 8vw, 100px) 0; }
+.cta-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(46px, 7vw, 80px) clamp(26px, 6vw, 70px);
+  border: 1px solid rgba(255, 255, 255, .8);
+  border-radius: 34px;
+  background:
+    radial-gradient(38% 80% at 90% 10%, rgba(255, 255, 255, .5), transparent 70%),
+    linear-gradient(125deg, #8ddff0, #bdeee6 48%, #ffe8b2);
+  box-shadow: 0 30px 70px -40px rgba(16, 47, 40, .45);
+  text-align: left;
+}
+.cta-panel::after {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  right: -100px;
+  bottom: -190px;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 50%;
+}
+.cta-panel .section-kicker { color: var(--site-green); }
+.cta-title { max-width: 700px; margin: 0; font-family: var(--font-display); font-size: clamp(2.3rem, 4.8vw, 4.2rem); line-height: 1; letter-spacing: -.05em; }
+.cta-copy { max-width: 560px; margin: 16px 0 0; color: rgba(16, 47, 40, .7); font-size: 15px; line-height: 1.75; }
+.cta-actions { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.cta-actions .site-btn.secondary { border-color: rgba(16, 47, 40, .25); background: rgba(255, 253, 246, .4); }
+
+/* Footer */
+.site-footer {
+  padding: 62px 0 26px;
+  background: #0d2a24;
+  color: rgba(255, 249, 233, .8);
+}
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px; }
+.footer-brand .site-brand { color: #fff9e9; }
+.footer-brand .site-brand-mark { background: rgba(255, 255, 255, .1); color: var(--site-gold); box-shadow: none; }
+.footer-brand .site-brand-text strong { color: #9fe3d3; }
+.footer-tagline { max-width: 300px; margin: 18px 0 0; color: rgba(255, 249, 233, .6); font-size: 12px; line-height: 1.7; }
+.footer-credit { margin: 18px 0 0; color: #fff9e9; font-size: 12px; font-weight: 700; line-height: 1.7; }
+.footer-col h4 { margin: 3px 0 16px; color: rgba(255, 249, 233, .55); font-size: 9.5px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+.footer-col a { display: block; width: fit-content; margin: 0 0 11px; color: rgba(255, 249, 233, .76); font-size: 12px; font-weight: 650; transition: color .2s ease; }
+.footer-col a:hover { color: var(--site-gold); }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 54px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  color: rgba(255, 249, 233, .58);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.footer-bottom a { color: rgba(255, 249, 233, .68); }
+.footer-bottom a:hover { color: var(--site-gold); }
+.footer-controls { display: flex; align-items: center; gap: 12px; }
+.lang-switch.light { border-color: rgba(255, 255, 255, .16); background: rgba(255, 255, 255, .045); }
+.lang-switch.light .lang-btn { color: rgba(255, 249, 233, .55); }
+.lang-switch.light .lang-btn.is-active { background: var(--site-gold); color: var(--site-green); }
+
+/* Reveal animation: content is visible by default, so a missed observation can never hide the page. */
+@keyframes site-reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+.reveal.is-visible { animation: site-reveal .7s cubic-bezier(.2, .75, .3, 1) both; }
+
+/* Chinese typography tuning */
+html[lang="zh-Hant"] .hero-title,
+html[lang="zh-Hant"] .section-title,
+html[lang="zh-Hant"] .craft-title,
+html[lang="zh-Hant"] .cta-title { letter-spacing: -.02em; line-height: 1.16; }
+html[lang="zh-Hant"] .hero-title { line-height: 1.08; }
+html[lang="zh-Hant"] .statement-title { letter-spacing: -.025em; line-height: 1.3; }
+html[lang="zh-Hant"] .hero-lede,
+html[lang="zh-Hant"] .section-copy,
+html[lang="zh-Hant"] .statement-body { line-height: 1.95; }
+html[lang="zh-Hant"] .faq-item summary { font-size: 14.5px; }
+html[lang="zh-Hant"] .brand-eyebrow { letter-spacing: .12em; }
+html[lang="zh-Hant"] .brand-flappy { letter-spacing: .04em; }
+
+/* Responsive */
+@media (max-width: 1040px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(300px, .72fr); gap: 34px; }
+  .hero-title { font-size: clamp(2.8rem, 5.7vw, 4.5rem); }
+  .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .how-grid { grid-template-columns: minmax(0, 1fr) minmax(280px, .78fr); gap: 34px; }
+  .craft-panel { grid-template-columns: minmax(0, 1fr) minmax(280px, .82fr); }
+}
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-actions { margin-left: auto; }
+  .menu-toggle { display: grid; }
+  .mobile-menu { display: none; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-copy { max-width: 720px; }
+  .hero-demo { justify-self: center; width: min(100%, 430px); margin-top: 10px; }
+  .hero-demo::before { display: none; }
+  .hero-title { font-size: clamp(2.9rem, 8.3vw, 4.8rem); }
+  .statement-grid { grid-template-columns: 1fr; gap: 12px; }
+  .statement .section-kicker { margin-top: 0; }
+  .how-grid { grid-template-columns: 1fr; }
+  .how-visual { order: -1; width: min(100%, 480px); margin-inline: auto; }
+  .craft-panel { grid-template-columns: 1fr; }
+  .metrics { max-width: 520px; }
+  .faq-grid { grid-template-columns: 1fr; gap: 26px; }
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .container, .mobile-menu { width: min(100% - 40px, 1180px); }
+  .nav-row { min-height: 68px; gap: 12px; }
+  .site-brand { font-size: 18px; }
+  .site-brand-mark { width: 37px; height: 37px; border-radius: 12px; }
+  .site-brand-mark svg { width: 22px; height: 22px; }
+  .nav-play { width: 42px; height: 42px; padding: 0; justify-content: center; }
+  .nav-play span { display: none; }
+  .nav-play svg { width: 16px; height: 16px; }
+  .mobile-menu .mobile-play {
+    width: 100%;
+    height: auto;
+    padding: 14px 18px;
+    border-radius: 14px;
+  }
+  .mobile-menu .mobile-play span { display: inline; }
+  .lang-btn { min-width: 35px; padding: 7px 8px; }
+  .lang-switch { padding: 2px; }
+  .hero { padding-top: 38px; }
+  .hero-title { font-size: clamp(2.7rem, 12vw, 4rem); }
+  .hero-lede { font-size: 15.5px; }
+  .hero-facts { gap: 9px 14px; font-size: 11.5px; }
+  .hero-byline { font-size: 11px; }
+  .demo-hint { display: none; }
+  .section { padding: 68px 0; }
+  .section-title { font-size: clamp(2rem, 8.4vw, 3rem); }
+  .section-copy { font-size: 15px; }
+  .statement-title { font-size: clamp(1.9rem, 8vw, 3rem); }
+  .feature-grid { grid-template-columns: 1fr; }
+  .feature-card { min-height: 0; padding: 23px; }
+  .feature-icon { margin-bottom: 21px; }
+  .person-card { padding: 24px; gap: 16px; }
+  .person-avatar { width: 58px; height: 58px; border-radius: 18px; font-size: 17px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 36px; }
+  .flight-art { width: 100%; }
+  .faq-item summary { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+  .container, .mobile-menu { width: min(100% - 28px, 1180px); }
+  .nav-actions { gap: 7px; }
+  .lang-switch { flex: 0 0 auto; }
+  .lang-btn { min-width: 31px; font-size: 10.5px; }
+  .menu-toggle { width: 38px; height: 38px; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .site-btn { width: 100%; }
+  .game-frame { padding: 6px; border-radius: 29px; }
+  .game-frame .game { border-radius: 23px; }
+  .demo-bar { font-size: 9.5px; }
+  .demo-expand span { display: none; }
+  .demo-expand { padding: 6px; }
+  .demo-foot { font-size: 10px; }
+  .craft-panel { padding: 28px 22px; border-radius: 26px; }
+  .metrics { gap: 9px; }
+  .metric { min-height: 112px; padding: 16px 14px; }
+  .cta-panel { border-radius: 26px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .person-card { flex-direction: column; }
+  .team-quote { padding-top: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal.is-visible { animation: none; }
+  .hero-cloud, .live-dot { animation: none; }
+  .site-header.menu-open .mobile-menu { animation: none; }
+  .site-btn, .feature-card, .game-frame { transition: none; }
+}
+
+.game-frame .game .screen { z-index: 30; }
+
 </style>
 </head>
 <body>
-  <main class="game" id="game" data-mode="ready" aria-label="Flappy Plane game">
-    <canvas id="gameCanvas" width="960" height="1600" role="img" aria-label="A sunny side-scrolling skyline with glass skyscrapers and a white and blue twinjet airliner."></canvas>
+  <a class="skip-link" href="#play" data-i18n="a11y.skip">Skip to the game</a>
+  <div class="site-shell">
+    <header class="site-header" id="siteHeader">
+      <div class="container nav-row">
+        <a class="site-brand" href="#top" aria-label="Flappy Plane" data-i18n-aria-label="nav.home">
+          <span class="site-brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M3.2 18.3 14.7 14l12 2 1.3 2.1-9.8 1.2-3.9 5.8h-2.2l1.4-5.2-6.8 2.2-3.5-3.8Z" fill="currentColor"/><path d="M14.7 14 17 8.2l3.8 6.5" fill="currentColor" opacity=".72"/></svg>
+          </span>
+          <span class="site-brand-text">Flappy <strong>Plane</strong></span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary" data-i18n-aria-label="nav.primary">
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#how" data-i18n="nav.how">How to play</a>
+          <a href="#craft" data-i18n="nav.craft">The build</a>
+          <a href="#team" data-i18n="nav.team">Team</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria-label="nav.language">
+            <button class="lang-btn is-active" type="button" data-lang="en" aria-pressed="true">EN</button>
+            <button class="lang-btn" type="button" data-lang="zh" aria-pressed="false">繁中</button>
+          </div>
+          <button class="nav-play" type="button" data-play data-i18n-aria-label="nav.play">
+            <span data-i18n="nav.play">Play now</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <nav aria-label="Mobile" data-i18n-aria-label="nav.mobile">
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#how" data-i18n="nav.how">How to play</a>
+          <a href="#craft" data-i18n="nav.craft">The build</a>
+          <a href="#team" data-i18n="nav.team">Team</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <button class="nav-play mobile-play" type="button" data-play>
+            <span data-i18n="nav.play">Play now</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-sun" aria-hidden="true"></div>
+        <div class="hero-cloud cloud-one" aria-hidden="true"></div>
+        <div class="hero-cloud cloud-two" aria-hidden="true"></div>
+        <div class="hero-cloud cloud-three" aria-hidden="true"></div>
+
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="kicker">
+              <span class="kicker-dot" aria-hidden="true"></span>
+              <span data-i18n="hero.kicker">A student-built arcade flight</span>
+              <span class="kicker-tag">v1.2</span>
+            </p>
+            <h1 class="hero-title">
+              <span data-i18n="hero.title1">A tiny jet.</span>
+              <span class="accent" data-i18n="hero.title2">An endless skyline.</span>
+            </h1>
+            <p class="hero-lede" data-i18n="hero.lede">Thread the gap. Chase the medal. Pilot a 303-liveried twinjet through glowing glass towers in a one-button arcade flight made for the space between classes.</p>
+            <div class="hero-actions">
+              <button class="site-btn primary" type="button" data-play>
+                <span data-i18n="hero.ctaPlay">Play free</span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <a class="site-btn secondary" href="#how" data-i18n="hero.ctaHow">See how to play</a>
+            </div>
+            <ul class="hero-facts">
+              <li><span class="fact-tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m6 12 4 4 8-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="hero.fact1">No download</span></li>
+              <li><span class="fact-tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m6 12 4 4 8-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="hero.fact2">English + 繁體中文</span></li>
+              <li><span class="fact-tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m6 12 4 4 8-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="hero.fact3">Desktop &amp; mobile</span></li>
+            </ul>
+            <p class="hero-byline"><span data-i18n="hero.byline">Created by</span> <strong>1C Paco Au Yeung &amp; 1C Max Chan</strong></p>
+          </div>
+
+          <div class="hero-demo reveal" id="play">
+            <div class="demo-bar">
+              <span class="live-pill"><span class="live-dot" aria-hidden="true"></span><span data-i18n="demo.live">Live demo</span></span>
+              <span class="demo-hint" data-i18n="demo.hint">Tap the jet to start</span>
+              <button class="demo-expand" id="fullscreenBtn" type="button" aria-label="Fullscreen" data-i18n-aria-label="demo.fullscreen">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 4H4v4M16 4h4v4M8 20H4v-4M16 20h4v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span data-i18n="demo.fullscreen">Fullscreen</span>
+              </button>
+            </div>
+            <div class="game-frame" id="gameFrame">
+<div class="game" id="game" data-mode="ready" tabindex="0" role="group" aria-roledescription="game" aria-label="Flappy Plane game">
+    <canvas id="gameCanvas" width="960" height="1600" role="img" aria-label="A sunny side-scrolling skyline with glass skyscrapers and a white and blue twinjet airliner." data-i18n-aria-label="game.canvasAria"></canvas>
     <div class="corners" aria-hidden="true"></div>
 
     <div class="hud">
       <div class="best-chip">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 4h8v3a4 4 0 0 1-8 0V4Z" fill="currentColor" opacity=".9"/><path d="M8 5H5v2a4 4 0 0 0 4 4M16 5h3v2a4 4 0 0 1-4 4M12 11v5M8.5 20h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>Best</span><b id="bestHud">0</b>
+        <span data-i18n="game.best">Best</span><b id="bestHud">0</b>
       </div>
       <div class="score" id="scoreHud">0</div>
       <div class="hud-controls">
@@ -919,7 +2282,7 @@
             <path d="m16.5 9 5 5m0-5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
           </svg>
         </button>
-        <button class="icon-btn pause-btn" id="pauseBtn" type="button" aria-label="Pause game">
+        <button class="icon-btn pause-btn" id="pauseBtn" type="button" aria-label="Pause game" data-i18n-aria-label="game.pause">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <rect x="6" y="4.5" width="4" height="15" rx="1.5" fill="currentColor"/>
             <rect x="14" y="4.5" width="4" height="15" rx="1.5" fill="currentColor"/>
@@ -928,40 +2291,40 @@
       </div>
     </div>
 
-    <section class="screen ready-screen is-visible" id="readyScreen" aria-label="Start screen">
+    <section class="screen ready-screen is-visible" id="readyScreen" aria-label="Start screen" data-i18n-aria-label="game.startScreen">
       <div class="brand">
-        <span class="brand-eyebrow">A tiny jet run</span>
-        <h1>
+        <span class="brand-eyebrow" data-i18n="game.tagline">A tiny jet run</span>
+        <div class="brand-title">
           <span class="brand-flappy">Flappy</span>
           <span class="brand-plane">Plane</span>
-        </h1>
+        </div>
       </div>
 
       <div></div>
 
       <div class="ready-panel">
         <p class="ready-hint">
-          <span>Tap anywhere or press</span>
-          <span class="keycap">Space</span>
-          <span>to fly</span>
+          <span data-i18n="game.tapPrefix">Tap anywhere or press</span>
+          <span class="keycap" data-i18n="game.spaceKey">Space</span>
+          <span data-i18n="game.tapSuffix">to fly</span>
         </p>
         <button class="btn" id="playBtn" type="button">
-          <span>Let's fly</span>
+          <span data-i18n="game.play">Let's fly</span>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <p class="ready-meta">
-          <span>Best <strong data-best>0</strong></span>
+          <span><span data-i18n="game.best">Best</span> <strong data-best>0</strong></span>
           <span class="dot" aria-hidden="true"></span>
-          <span>P to pause</span>
+          <span data-i18n="game.pauseHint">P to pause</span>
         </p>
       </div>
     </section>
 
     <section class="screen over-screen" id="overScreen" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="overTitle" aria-describedby="overDesc">
       <div class="over-card" id="overCard" tabindex="-1">
-        <p class="card-eyebrow">Round complete</p>
-        <h2 id="overTitle">Game over</h2>
-        <p class="sr-only" id="overDesc">Your score and best score are shown below.</p>
+        <p class="card-eyebrow" data-i18n="game.roundComplete">Round complete</p>
+        <h2 id="overTitle" data-i18n="game.gameOver">Game over</h2>
+        <p class="sr-only" id="overDesc" data-i18n="game.overDesc">Your score and best score are shown below.</p>
         <div class="result-row">
           <div class="medal-wrap">
             <div class="medal medal--none" id="medal" aria-label="No medal"><span aria-hidden="true">★</span></div>
@@ -969,47 +2332,847 @@
           </div>
           <div class="stats">
             <div class="stat">
-              <span class="stat-label">Score</span>
+              <span class="stat-label" data-i18n="game.score">Score</span>
               <strong class="stat-value" id="finalScore">0</strong>
             </div>
             <div class="stat-divider" aria-hidden="true"></div>
             <div class="stat">
-              <span class="stat-label">Best</span>
+              <span class="stat-label" data-i18n="game.best">Best</span>
               <strong class="stat-value" id="finalBest">0</strong>
             </div>
           </div>
         </div>
         <div class="new-best" id="newBest">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.8 6.1 6.7.8-4.9 4.6 1.3 6.6L12 16.8 6.1 20.1l1.3-6.6L2.5 8.9l6.7-.8L12 2Z"/></svg>
-          <span>New best!</span>
+          <span data-i18n="game.newBest">New best!</span>
         </div>
         <button class="btn" id="replayBtn" type="button">
-          <span>Play again</span>
+          <span data-i18n="game.playAgain">Play again</span>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.5 8.5V4m0 0H15m4.5 0-3.2 3.2a7 7 0 1 0 1.6 7.3" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <button class="text-btn" id="homeBtn" type="button">Back to start</button>
+        <button class="text-btn" id="homeBtn" type="button" data-i18n="game.backToStart">Back to start</button>
       </div>
       <div class="confetti" id="confetti" aria-hidden="true"></div>
     </section>
 
     <section class="screen pause-screen" id="pauseScreen" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pauseTitle">
       <div class="pause-card" id="pauseCard" tabindex="-1">
-        <p class="card-eyebrow">Take a breather</p>
-        <h2 id="pauseTitle">Paused</h2>
-        <p class="pause-note">The sky isn't going anywhere. Ready when you are.</p>
+        <p class="card-eyebrow" data-i18n="game.takeBreather">Take a breather</p>
+        <h2 id="pauseTitle" data-i18n="game.paused">Paused</h2>
+        <p class="pause-note" data-i18n="game.pauseNote">The sky isn't going anywhere. Ready when you are.</p>
         <button class="btn" id="resumeBtn" type="button">
-          <span>Keep flying</span>
+          <span data-i18n="game.keepFlying">Keep flying</span>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 6 9 6-9 6V6Z" fill="currentColor"/></svg>
         </button>
-        <button class="text-btn" id="quitBtn" type="button">Back to start</button>
+        <button class="text-btn" id="quitBtn" type="button" data-i18n="game.backToStart">Back to start</button>
       </div>
     </section>
 
     <div class="flash" id="flash" aria-hidden="true"></div>
     <p class="sr-only" id="announcer" aria-live="polite"></p>
-  </main>
+  </div>              <button class="fullscreen-exit" id="fullscreenExit" type="button" aria-label="Exit fullscreen" data-i18n-aria-label="demo.exitFullscreen">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="demo-foot">
+              <span data-i18n="demo.caption">Sound on. Seatbelt optional.</span>
+              <span class="demo-best"><span data-i18n="demo.bestLabel">Personal best</span> <strong data-site-best>0</strong></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section statement" id="about">
+        <div class="container statement-grid">
+          <p class="section-kicker" data-i18n="statement.kicker">The product</p>
+          <div>
+            <h2 class="statement-title" data-i18n="statement.title">Five seconds to learn. Just one more run to master.</h2>
+            <p class="statement-body" data-i18n="statement.body">Flappy Plane is a small, carefully tuned arcade game about rhythm and restraint. Every tap changes your altitude. Every gap asks for a calmer hand.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="section-kicker" data-i18n="features.kicker">Why it feels different</p>
+            <h2 class="section-title" data-i18n="features.title">Small game. Considered details.</h2>
+            <p class="section-copy" data-i18n="features.lede">Designed to be understood at a glance, then enjoyed for one more attempt.</p>
+          </header>
+          <div class="feature-grid">
+            <article class="feature-card reveal">
+              <span class="feature-index">01</span>
+              <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11V5.5a1.7 1.7 0 0 1 3.4 0V10m0-3.2a1.7 1.7 0 0 1 3.4 0V11m0-2.4a1.7 1.7 0 0 1 3.4 0v6.1c0 3.3-2.7 5.8-6 5.8-2.1 0-3.5-.9-4.7-2.5L5 13.7a1.8 1.8 0 0 1 2.8-2.2l1.2 1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <h3 data-i18n="features.oneTitle">One-button flight</h3>
+              <p data-i18n="features.oneBody">Tap, click or press Space to boost. That's the whole control scheme.</p>
+            </article>
+            <article class="feature-card reveal">
+              <span class="feature-index">02</span>
+              <span class="feature-icon gold" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21V9h5v12M8 21V4h6v17M14 21v-8h5v8M2 21h20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <h3 data-i18n="features.twoTitle">A living skyline</h3>
+              <p data-i18n="features.twoBody">Glass towers, drifting clouds and a parallax city keep every run in motion.</p>
+            </article>
+            <article class="feature-card reveal">
+              <span class="feature-index">03</span>
+              <span class="feature-icon coral" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="5" stroke="currentColor" stroke-width="1.8"/><path d="m8.5 13-2 8 5.5-3 5.5 3-2-8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 6 .8 1.8 1.9.2-1.4 1.3.4 1.9-1.7-1-1.7 1 .4-1.9-1.4-1.3 1.9-.2L12 6Z" fill="currentColor"/></svg></span>
+              <h3 data-i18n="features.threeTitle">Medals worth chasing</h3>
+              <p data-i18n="features.threeBody">Bronze, silver, gold and platinum tiers give every run a next goal.</p>
+            </article>
+            <article class="feature-card reveal">
+              <span class="feature-index">04</span>
+              <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 10v4h3l5 4V6l-5 4H4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 9.5a4 4 0 0 1 0 5M18.5 7a7.5 7.5 0 0 1 0 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+              <h3 data-i18n="features.fourTitle">Sound you can switch off</h3>
+              <p data-i18n="features.fourBody">Engine hum, score chimes and building explosions, all generated in the browser.</p>
+            </article>
+            <article class="feature-card reveal">
+              <span class="feature-index">05</span>
+              <span class="feature-icon gold" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16l-6-3-6 3V4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9h6M9 12h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+              <h3 data-i18n="features.fiveTitle">Your best, kept local</h3>
+              <p data-i18n="features.fiveBody">Scores stay in your browser. No account, no upload, no fuss.</p>
+            </article>
+            <article class="feature-card reveal">
+              <span class="feature-index">06</span>
+              <span class="feature-icon coral" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.6 2.4 4 5.6 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.6-4-9s1.4-6.6 4-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+              <h3 data-i18n="features.sixTitle">Made for both languages</h3>
+              <p data-i18n="features.sixBody">Switch between English and Traditional Chinese at any time, even mid-flight.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section how-section" id="how">
+        <div class="container how-grid">
+          <div class="how-copy reveal">
+            <p class="section-kicker" data-i18n="how.kicker">Flight manual</p>
+            <h2 class="section-title" data-i18n="how.title">Three taps to take off.</h2>
+            <p class="section-copy" data-i18n="how.body">The rules fit on a boarding pass. The mastery takes a little longer.</p>
+            <div class="steps">
+              <div class="step">
+                <span class="step-number" aria-hidden="true">1</span>
+                <div><h3 data-i18n="how.step1Title">Tap to climb</h3><p data-i18n="how.step1Body">Every tap gives the jet a short burst of lift. Let go and gravity does the rest.</p></div>
+              </div>
+              <div class="step">
+                <span class="step-number" aria-hidden="true">2</span>
+                <div><h3 data-i18n="how.step2Title">Find the gap</h3><p data-i18n="how.step2Body">Line up with the opening between towers. The higher your score, the tighter the fit.</p></div>
+              </div>
+              <div class="step">
+                <span class="step-number" aria-hidden="true">3</span>
+                <div><h3 data-i18n="how.step3Title">Chase the medal</h3><p data-i18n="how.step3Body">Reach 3, 10, 20 or 35 points to earn a bronze, silver, gold or platinum medal.</p></div>
+              </div>
+            </div>
+            <div class="controls-card">
+              <p class="controls-title" data-i18n="how.controlsTitle">Controls</p>
+              <div class="control-row">
+                <span class="control"><span class="key">Space</span><span data-i18n="how.ctrlBoost">Boost</span></span>
+                <span class="control"><span class="key">P</span><span data-i18n="how.ctrlPause">Pause</span></span>
+                <span class="control"><span class="key">M</span><span data-i18n="how.ctrlMute">Mute</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="how-visual reveal">
+            <div class="flight-art" aria-hidden="true">
+              <span class="art-sun"></span>
+              <span class="art-cloud c1"></span>
+              <span class="art-cloud c2"></span>
+              <span class="art-tower-back"></span>
+              <div class="flight-tower top"></div>
+              <div class="flight-tower bottom"></div>
+              <svg class="flight-path" viewBox="0 0 400 470" preserveAspectRatio="none">
+                <path d="M18 390 C 96 342, 134 292, 192 258 S 262 230, 304 154 S 346 112, 384 94" fill="none" stroke="rgba(255,255,255,.82)" stroke-width="2.2" stroke-dasharray="7 9" stroke-linecap="round"/>
+                <circle cx="192" cy="258" r="4" fill="#fff8d2" opacity=".85"/>
+              </svg>
+              <span class="art-plane">
+                <svg viewBox="0 0 100 62" fill="none">
+                  <path d="M7 36 45 23l37 4 6 7-38 4-14 18h-8l7-17-23 7-5-10Z" fill="#fffdf6" stroke="#183f3a" stroke-width="3.2" stroke-linejoin="round"/>
+                  <path d="M45 23 51 10l11 17" fill="#1d4f72" stroke="#183f3a" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M53 38h16" stroke="#f4c34e" stroke-width="3.2" stroke-linecap="round"/>
+                  <circle cx="82" cy="32" r="3" fill="#ffe28a" stroke="#183f3a" stroke-width="2"/>
+                </svg>
+              </span>
+              <span class="art-caption" data-i18n="how.artCaption">One clean line through the skyline.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="craft">
+        <div class="container">
+          <div class="craft-panel reveal">
+            <div>
+              <p class="section-kicker" data-i18n="craft.kicker">Under the hood</p>
+              <h2 class="craft-title" data-i18n="craft.title">One file. Zero dependencies.</h2>
+              <p class="craft-body" data-i18n="craft.body">The entire experience — artwork, physics, audio, localisation and interface — lives in a single HTML file. No framework, no build step, no tracking.</p>
+              <ul class="craft-list">
+                <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="craft.point1">Canvas 2D rendering with a hand-drawn jet and skyline</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="craft.point2">Web Audio engine sounds and generated effects</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="craft.point3">Local best-score storage; no account required</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="craft.point4">Fully responsive, keyboard and touch friendly</span></li>
+              </ul>
+            </div>
+            <div class="metrics" aria-hidden="true">
+              <div class="metric"><span class="metric-value">1</span><span class="metric-label" data-i18n="craft.metric1">HTML file</span></div>
+              <div class="metric"><span class="metric-value">2</span><span class="metric-label" data-i18n="craft.metric2">Languages</span></div>
+              <div class="metric"><span class="metric-value">4</span><span class="metric-label" data-i18n="craft.metric3">Medal tiers</span></div>
+              <div class="metric"><span class="metric-value">0</span><span class="metric-label" data-i18n="craft.metric4">Dependencies</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="team">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="section-kicker" data-i18n="team.kicker">The crew</p>
+            <h2 class="section-title" data-i18n="team.title">Built by two students who wanted to make something fly.</h2>
+            <p class="section-copy" data-i18n="team.body">Flappy Plane began as a coding project and became a lesson in polish: tuning the feel of every tap, drawing every window, and making the whole thing fit in one file.</p>
+          </header>
+          <div class="team-grid">
+            <article class="person-card reveal">
+              <div class="person-avatar" aria-hidden="true">PA</div>
+              <div class="person-info">
+                <h3>Paco Au Yeung</h3>
+                <p class="person-meta" data-i18n="team.role">Co-creator</p>
+                <span class="person-class">1C</span>
+              </div>
+            </article>
+            <article class="person-card reveal">
+              <div class="person-avatar" aria-hidden="true">MC</div>
+              <div class="person-info">
+                <h3>Max Chan</h3>
+                <p class="person-meta" data-i18n="team.role">Co-creator</p>
+                <span class="person-class">1C</span>
+              </div>
+            </article>
+            <blockquote class="team-quote reveal">
+              <span data-i18n="team.quote">“Make it simple enough to start, and good enough to replay.”</span>
+              <footer data-i18n="team.attribution">— Paco &amp; Max</footer>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <section class="section faq-section" id="faq">
+        <div class="container faq-grid">
+          <header class="reveal">
+            <p class="section-kicker" data-i18n="faq.kicker">FAQ</p>
+            <h2 class="section-title" data-i18n="faq.title">Before you board.</h2>
+          </header>
+          <div class="faq-list reveal">
+            <details class="faq-item" open>
+              <summary data-i18n="faq.q1">Is Flappy Plane free?</summary>
+              <div class="faq-answer"><p data-i18n="faq.a1">Yes. The full game is free to play in your browser.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faq.q2">Do I need to download anything?</summary>
+              <div class="faq-answer"><p data-i18n="faq.a2">No. It runs directly on this page.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faq.q3">Where is my best score saved?</summary>
+              <div class="faq-answer"><p data-i18n="faq.a3">Locally in your browser. It never leaves your device. Clearing site data resets it.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faq.q4">Can I play on my phone?</summary>
+              <div class="faq-answer"><p data-i18n="faq.a4">Yes. Tap to boost, use the pause button to take a break.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faq.q5">Who made it?</summary>
+              <div class="faq-answer"><p data-i18n="faq.a5">1C Paco Au Yeung and 1C Max Chan.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faq.q6">Why a Boeing 303?</summary>
+              <div class="faq-answer"><p data-i18n="faq.a6">It's a playful, fictional livery. The 303 twinjet is hand-drawn for the game and isn't a real production aircraft.</p></div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="container">
+          <div class="cta-panel reveal">
+            <p class="section-kicker" data-i18n="cta.kicker">Ready when you are</p>
+            <h2 class="cta-title" data-i18n="cta.title">The skyline is waiting.</h2>
+            <p class="cta-copy" data-i18n="cta.body">No download. No account. Just one more flight.</p>
+            <div class="cta-actions">
+              <button class="site-btn primary" type="button" data-play>
+                <span data-i18n="cta.button">Play Flappy Plane</span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <a class="site-btn secondary" href="https://github.com/s20260002-rgb/flappy_plane" target="_blank" rel="noopener noreferrer" data-i18n="cta.source">View source</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="site-brand" href="#top" aria-label="Flappy Plane" data-i18n-aria-label="nav.home">
+              <span class="site-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M3.2 18.3 14.7 14l12 2 1.3 2.1-9.8 1.2-3.9 5.8h-2.2l1.4-5.2-6.8 2.2-3.5-3.8Z" fill="currentColor"/><path d="M14.7 14 17 8.2l3.8 6.5" fill="currentColor" opacity=".72"/></svg></span>
+              <span class="site-brand-text">Flappy <strong>Plane</strong></span>
+            </a>
+            <p class="footer-tagline" data-i18n="footer.tagline">A tiny arcade flight made in Class 1C.</p>
+            <p class="footer-credit" data-i18n="footer.credit">Created by 1C Paco Au Yeung and 1C Max Chan.</p>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer.explore">Explore</h4>
+            <a href="#features" data-i18n="nav.features">Features</a>
+            <a href="#how" data-i18n="nav.how">How to play</a>
+            <a href="#craft" data-i18n="nav.craft">The build</a>
+            <a href="#team" data-i18n="nav.team">Team</a>
+            <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer.more">More</h4>
+            <a href="#play" data-play data-i18n="footer.play">Play the game</a>
+            <a href="https://github.com/s20260002-rgb/flappy_plane" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a href="https://github.com/s20260002-rgb/flappy_plane/actions" target="_blank" rel="noopener noreferrer" data-i18n="footer.actions">Deployments</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span data-i18n="footer.rights">© 2026 Flappy Plane. All rights reserved.</span>
+          <span class="footer-controls">
+            <span data-i18n="footer.built">Built with Canvas &amp; Web Audio</span>
+            <span class="lang-switch light" role="group" aria-label="Language" data-i18n-aria-label="nav.language">
+              <button class="lang-btn is-active" type="button" data-lang="en" aria-pressed="true">EN</button>
+              <button class="lang-btn" type="button" data-lang="zh" aria-pressed="false">繁中</button>
+            </span>
+          </span>
+        </div>
+      </div>
+    </footer>
+  </div>
 
 <script>
+(() => {
+  "use strict";
+
+  const STRINGS = {
+    en: {
+      "meta.title": "Flappy Plane — A Tiny Flight Adventure",
+      "meta.description": "A student-built bilingual arcade flight. Guide a 303-liveried twinjet through glass skyscrapers, chase medals and beat your personal best.",
+      "a11y.skip": "Skip to the game",
+      "nav.features": "Features",
+      "nav.how": "How to play",
+      "nav.craft": "The build",
+      "nav.team": "Team",
+      "nav.faq": "FAQ",
+      "nav.play": "Play now",
+      "nav.home": "Flappy Plane — home",
+      "nav.primary": "Primary",
+      "nav.mobile": "Mobile",
+      "nav.language": "Language",
+      "nav.menuOpen": "Open menu",
+      "nav.menuClose": "Close menu",
+      "hero.kicker": "A student-built arcade flight",
+      "hero.title1": "A tiny jet.",
+      "hero.title2": "An endless skyline.",
+      "hero.lede": "Thread the gap. Chase the medal. Pilot a 303-liveried twinjet through glowing glass towers in a one-button arcade flight made for the space between classes.",
+      "hero.ctaPlay": "Play free",
+      "hero.ctaHow": "See how to play",
+      "hero.fact1": "No download",
+      "hero.fact2": "English + 繁體中文",
+      "hero.fact3": "Desktop & mobile",
+      "hero.byline": "Created by",
+      "demo.live": "Live demo",
+      "demo.hint": "Tap the jet to start",
+      "demo.caption": "Sound on. Seatbelt optional.",
+      "demo.bestLabel": "Personal best",
+      "demo.fullscreen": "Fullscreen",
+      "demo.exitFullscreen": "Exit fullscreen",
+      "statement.kicker": "The product",
+      "statement.title": "Five seconds to learn. Just one more run to master.",
+      "statement.body": "Flappy Plane is a small, carefully tuned arcade game about rhythm and restraint. Every tap changes your altitude. Every gap asks for a calmer hand.",
+      "features.kicker": "Why it feels different",
+      "features.title": "Small game. Considered details.",
+      "features.lede": "Designed to be understood at a glance, then enjoyed for one more attempt.",
+      "features.oneTitle": "One-button flight",
+      "features.oneBody": "Tap, click or press Space to boost. That's the whole control scheme.",
+      "features.twoTitle": "A living skyline",
+      "features.twoBody": "Glass towers, drifting clouds and a parallax city keep every run in motion.",
+      "features.threeTitle": "Medals worth chasing",
+      "features.threeBody": "Bronze, silver, gold and platinum tiers give every run a next goal.",
+      "features.fourTitle": "Sound you can switch off",
+      "features.fourBody": "Engine hum, score chimes and building explosions, all generated in the browser.",
+      "features.fiveTitle": "Your best, kept local",
+      "features.fiveBody": "Scores stay in your browser. No account, no upload, no fuss.",
+      "features.sixTitle": "Made for both languages",
+      "features.sixBody": "Switch between English and Traditional Chinese at any time, even mid-flight.",
+      "how.kicker": "Flight manual",
+      "how.title": "Three taps to take off.",
+      "how.body": "The rules fit on a boarding pass. The mastery takes a little longer.",
+      "how.step1Title": "Tap to climb",
+      "how.step1Body": "Every tap gives the jet a short burst of lift. Let go and gravity does the rest.",
+      "how.step2Title": "Find the gap",
+      "how.step2Body": "Line up with the opening between towers. The higher your score, the tighter the fit.",
+      "how.step3Title": "Chase the medal",
+      "how.step3Body": "Reach 3, 10, 20 or 35 points to earn a bronze, silver, gold or platinum medal.",
+      "how.controlsTitle": "Controls",
+      "how.ctrlBoost": "Boost",
+      "how.ctrlPause": "Pause",
+      "how.ctrlMute": "Mute",
+      "how.artCaption": "One clean line through the skyline.",
+      "craft.kicker": "Under the hood",
+      "craft.title": "One file. Zero dependencies.",
+      "craft.body": "The entire experience — artwork, physics, audio, localisation and interface — lives in a single HTML file. No framework, no build step, no tracking.",
+      "craft.point1": "Canvas 2D rendering with a hand-drawn jet and skyline",
+      "craft.point2": "Web Audio engine sounds and generated effects",
+      "craft.point3": "Local best-score storage; no account required",
+      "craft.point4": "Fully responsive, keyboard and touch friendly",
+      "craft.metric1": "HTML file",
+      "craft.metric2": "Languages",
+      "craft.metric3": "Medal tiers",
+      "craft.metric4": "Dependencies",
+      "team.kicker": "The crew",
+      "team.title": "Built by two students who wanted to make something fly.",
+      "team.body": "Flappy Plane began as a coding project and became a lesson in polish: tuning the feel of every tap, drawing every window, and making the whole thing fit in one file.",
+      "team.role": "Co-creator",
+      "team.quote": "“Make it simple enough to start, and good enough to replay.”",
+      "team.attribution": "— Paco & Max",
+      "faq.kicker": "FAQ",
+      "faq.title": "Before you board.",
+      "faq.q1": "Is Flappy Plane free?",
+      "faq.a1": "Yes. The full game is free to play in your browser.",
+      "faq.q2": "Do I need to download anything?",
+      "faq.a2": "No. It runs directly on this page.",
+      "faq.q3": "Where is my best score saved?",
+      "faq.a3": "Locally in your browser. It never leaves your device. Clearing site data resets it.",
+      "faq.q4": "Can I play on my phone?",
+      "faq.a4": "Yes. Tap to boost, use the pause button to take a break.",
+      "faq.q5": "Who made it?",
+      "faq.a5": "1C Paco Au Yeung and 1C Max Chan.",
+      "faq.q6": "Why a Boeing 303?",
+      "faq.a6": "It's a playful, fictional livery. The 303 twinjet is hand-drawn for the game and isn't a real production aircraft.",
+      "cta.kicker": "Ready when you are",
+      "cta.title": "The skyline is waiting.",
+      "cta.body": "No download. No account. Just one more flight.",
+      "cta.button": "Play Flappy Plane",
+      "cta.source": "View source",
+      "footer.tagline": "A tiny arcade flight made in Class 1C.",
+      "footer.credit": "Created by 1C Paco Au Yeung and 1C Max Chan.",
+      "footer.explore": "Explore",
+      "footer.more": "More",
+      "footer.play": "Play the game",
+      "footer.actions": "Deployments",
+      "footer.built": "Built with Canvas & Web Audio",
+      "footer.rights": "© 2026 Flappy Plane. All rights reserved.",
+      "game.best": "Best",
+      "game.pause": "Pause game",
+      "game.mute": "Mute sound",
+      "game.unmute": "Unmute sound",
+      "game.tagline": "A tiny jet run",
+      "game.startScreen": "Start screen",
+      "game.canvasAria": "A sunny side-scrolling skyline with glass skyscrapers and a white and blue twinjet airliner.",
+      "game.ariaGame": "Flappy Plane game",
+      "game.tapPrefix": "Tap anywhere or press",
+      "game.spaceKey": "Space",
+      "game.tapSuffix": "to fly",
+      "game.play": "Let's fly",
+      "game.pauseHint": "P to pause",
+      "game.roundComplete": "Round complete",
+      "game.gameOver": "Game over",
+      "game.overDesc": "Your score and best score are shown below.",
+      "game.score": "Score",
+      "game.newBest": "New best!",
+      "game.playAgain": "Play again",
+      "game.backToStart": "Back to start",
+      "game.takeBreather": "Take a breather",
+      "game.paused": "Paused",
+      "game.pauseNote": "The sky isn't going anywhere. Ready when you are.",
+      "game.keepFlying": "Keep flying",
+      "game.medals.none": "No medal",
+      "game.medals.bronze": "Bronze",
+      "game.medals.silver": "Silver",
+      "game.medals.gold": "Gold",
+      "game.medals.platinum": "Platinum",
+      "game.medalAriaNone": "No medal",
+      "game.medalAria": "{medal} medal",
+      "game.announceNewBest": "Game over. New best score: {score}.",
+      "game.announceScore": "Game over. Score: {score}. Best: {best}."
+    },
+    zh: {
+      "meta.title": "Flappy Plane — 迷你飛行冒險",
+      "meta.description": "學生原創的中英雙語街機飛行遊戲。駕駛 303 塗裝雙引擎客機穿越玻璃高樓，追逐獎章，刷新個人最佳成績。",
+      "a11y.skip": "跳至遊戲",
+      "nav.features": "特色",
+      "nav.how": "玩法",
+      "nav.craft": "技術",
+      "nav.team": "團隊",
+      "nav.faq": "常見問題",
+      "nav.play": "立即遊玩",
+      "nav.home": "Flappy Plane 首頁",
+      "nav.primary": "主要導覽",
+      "nav.mobile": "手機導覽",
+      "nav.language": "語言",
+      "nav.menuOpen": "開啟選單",
+      "nav.menuClose": "關閉選單",
+      "hero.kicker": "學生原創 · 街機飛行",
+      "hero.title1": "一架小客機，",
+      "hero.title2": "無盡天際線。",
+      "hero.lede": "穿越高樓之間的空隙，追逐屬於你的獎章。駕駛 303 塗裝的雙引擎客機，在課堂與課堂之間，完成一趟俐落的飛行。",
+      "hero.ctaPlay": "免費試玩",
+      "hero.ctaHow": "玩法說明",
+      "hero.fact1": "免下載",
+      "hero.fact2": "中英雙語",
+      "hero.fact3": "電腦與手機",
+      "hero.byline": "製作團隊",
+      "demo.live": "即時試玩",
+      "demo.hint": "點擊客機開始",
+      "demo.caption": "音效已開啟，安全帶隨意。",
+      "demo.bestLabel": "個人最佳",
+      "demo.fullscreen": "全螢幕",
+      "demo.exitFullscreen": "退出全螢幕",
+      "statement.kicker": "關於作品",
+      "statement.title": "五秒上手，一局再一局。",
+      "statement.body": "Flappy Plane 是一款節奏明快、講究手感的小型街機遊戲。每一次按下，改變飛行高度；每一個空隙，考驗你的從容。",
+      "features.kicker": "遊戲特色",
+      "features.title": "小遊戲，細節不馬虎。",
+      "features.lede": "一眼看懂，卻會讓人想再試一次。",
+      "features.oneTitle": "一鍵飛行",
+      "features.oneBody": "點擊、輕觸或按空白鍵即可加速。所有操作，一個按鍵。",
+      "features.twoTitle": "流動的天際線",
+      "features.twoBody": "玻璃高樓、飄移雲層與視差城市，讓每一局都在流動。",
+      "features.threeTitle": "值得追逐的獎章",
+      "features.threeBody": "銅、銀、金、白金四個等級，為每一局留下下一個目標。",
+      "features.fourTitle": "可隨時靜音",
+      "features.fourBody": "引擎聲、得分音效與大樓爆炸聲，全部由瀏覽器即時生成。",
+      "features.fiveTitle": "最佳成績，留在本機",
+      "features.fiveBody": "成績只儲存在你的瀏覽器，不需帳號，也不上傳。",
+      "features.sixTitle": "中英雙語",
+      "features.sixBody": "可隨時切換英文與繁體中文，飛行中也不中斷。",
+      "how.kicker": "飛行手冊",
+      "how.title": "三個步驟，準備起飛。",
+      "how.body": "規則簡單得像一張登機證，精通卻需要一點時間。",
+      "how.step1Title": "點擊起飛",
+      "how.step1Body": "每次點擊都會為客機帶來一股升力；放手後，重力自然接手。",
+      "how.step2Title": "對準空隙",
+      "how.step2Body": "對準兩座高樓之間的開口；分數越高，空隙越窄。",
+      "how.step3Title": "追逐獎章",
+      "how.step3Body": "取得 3、10、20 或 35 分，解鎖銅、銀、金或白金獎章。",
+      "how.controlsTitle": "操作方式",
+      "how.ctrlBoost": "加速",
+      "how.ctrlPause": "暫停",
+      "how.ctrlMute": "靜音",
+      "how.artCaption": "一條俐落的航線，穿過天際線。",
+      "craft.kicker": "技術細節",
+      "craft.title": "單一檔案，零依賴。",
+      "craft.body": "整個體驗——畫面、物理、音效、語言與介面——都濃縮在一個 HTML 檔案裡。沒有框架、沒有建置流程，也沒有追蹤。",
+      "craft.point1": "Canvas 2D 渲染，手繪客機與天際線",
+      "craft.point2": "Web Audio 引擎聲與即時音效",
+      "craft.point3": "本機儲存最佳成績，無需帳號",
+      "craft.point4": "響應式版面，支援鍵盤與觸控",
+      "craft.metric1": "HTML 檔案",
+      "craft.metric2": "語言",
+      "craft.metric3": "獎章等級",
+      "craft.metric4": "外部依賴",
+      "team.kicker": "製作團隊",
+      "team.title": "兩個學生，想讓什麼飛起來。",
+      "team.body": "Flappy Plane 從一個編程作業開始，最後變成一堂關於細節的課：調整每一次點擊的手感、畫好每一扇窗，還要把整個世界收進一個檔案。",
+      "team.role": "共同創作者",
+      "team.quote": "「做到容易開始，也做到值得再玩。」",
+      "team.attribution": "—— Paco 與 Max",
+      "faq.kicker": "常見問題",
+      "faq.title": "登機前，先看看。",
+      "faq.q1": "Flappy Plane 是免費的嗎？",
+      "faq.a1": "是。完整遊戲可直接在瀏覽器免費遊玩。",
+      "faq.q2": "需要下載任何東西嗎？",
+      "faq.a2": "不需要。遊戲直接在此頁面運行。",
+      "faq.q3": "最佳成績儲存在哪裡？",
+      "faq.a3": "只儲存在你的瀏覽器本機，不會離開你的裝置。清除網站資料後便會重設。",
+      "faq.q4": "可以在手機上玩嗎？",
+      "faq.a4": "可以。點擊即可加速，也可用暫停按鈕休息一下。",
+      "faq.q5": "這是誰製作的？",
+      "faq.a5": "1C Paco Au Yeung 與 1C Max Chan。",
+      "faq.q6": "為何是 Boeing 303？",
+      "faq.a6": "這是一個虛構的趣味塗裝。303 雙引擎客機是為遊戲手繪的造型，並非真實量產機型。",
+      "cta.kicker": "隨時準備起飛",
+      "cta.title": "天際線正在等你。",
+      "cta.body": "免下載、免帳號，再飛一次就好。",
+      "cta.button": "開始遊玩",
+      "cta.source": "查看原始碼",
+      "footer.tagline": "在 1C 班誕生的迷你街機飛行。",
+      "footer.credit": "由 1C Paco Au Yeung 與 1C Max Chan 創作。",
+      "footer.explore": "探索",
+      "footer.more": "更多",
+      "footer.play": "開始遊戲",
+      "footer.actions": "部署紀錄",
+      "footer.built": "以 Canvas 與 Web Audio 製作",
+      "footer.rights": "© 2026 Flappy Plane。保留所有權利。",
+      "game.best": "最佳",
+      "game.pause": "暫停遊戲",
+      "game.mute": "靜音",
+      "game.unmute": "開啟音效",
+      "game.tagline": "迷你噴射飛行",
+      "game.startScreen": "開始畫面",
+      "game.canvasAria": "陽光下的橫向捲軸天際線，有玻璃摩天大樓與一架白藍色雙引擎客機。",
+      "game.ariaGame": "Flappy Plane 遊戲",
+      "game.tapPrefix": "點擊任何位置或按",
+      "game.spaceKey": "空白鍵",
+      "game.tapSuffix": "起飛",
+      "game.play": "立即起飛",
+      "game.pauseHint": "P 暫停",
+      "game.roundComplete": "本局完成",
+      "game.gameOver": "遊戲結束",
+      "game.overDesc": "以下顯示你的分數與最佳成績。",
+      "game.score": "分數",
+      "game.newBest": "新紀錄！",
+      "game.playAgain": "再玩一次",
+      "game.backToStart": "返回開始",
+      "game.takeBreather": "稍作休息",
+      "game.paused": "已暫停",
+      "game.pauseNote": "天空不會跑掉，準備好再繼續。",
+      "game.keepFlying": "繼續飛行",
+      "game.medals.none": "未獲獎章",
+      "game.medals.bronze": "銅牌",
+      "game.medals.silver": "銀牌",
+      "game.medals.gold": "金牌",
+      "game.medals.platinum": "白金獎章",
+      "game.medalAriaNone": "未獲獎章",
+      "game.medalAria": "{medal}獎章",
+      "game.announceNewBest": "遊戲結束。新最佳成績：{score} 分。",
+      "game.announceScore": "遊戲結束。得分：{score} 分，最佳：{best} 分。"
+    }
+  };
+
+  const SUPPORTED = ["en", "zh"];
+  const STORAGE_LANG = "flappy-plane.siteLanguage";
+  const STORAGE_BEST = "flappy-bird.best.v1";
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let lang = "en";
+
+  const readLanguage = () => {
+    try {
+      const saved = window.localStorage.getItem(STORAGE_LANG);
+      if (SUPPORTED.includes(saved)) return saved;
+    } catch (err) {}
+    const browser = (navigator.language || "en").toLowerCase();
+    return browser.startsWith("zh") ? "zh" : "en";
+  };
+
+  const t = (key, vars) => {
+    const table = STRINGS[lang] || STRINGS.en;
+    let value = table[key];
+    if (value === undefined) value = STRINGS.en[key];
+    if (value === undefined) return key;
+    if (vars) {
+      value = value.replace(/\{(\w+)\}/g, (match, name) =>
+        Object.prototype.hasOwnProperty.call(vars, name) ? String(vars[name]) : match
+      );
+    }
+    return value;
+  };
+
+  const readBest = () => {
+    try {
+      const value = Number.parseInt(window.localStorage.getItem(STORAGE_BEST) || "0", 10);
+      return Number.isFinite(value) && value > 0 ? value : 0;
+    } catch (err) {
+      return 0;
+    }
+  };
+
+  const syncSiteBest = (value = readBest()) => {
+    document.querySelectorAll("[data-site-best]").forEach((el) => {
+      el.textContent = String(value);
+    });
+  };
+
+  const updateMenuLabel = () => {
+    const header = document.getElementById("siteHeader");
+    const toggle = document.getElementById("menuToggle");
+    if (!header || !toggle) return;
+    toggle.setAttribute("aria-label", t(header.classList.contains("menu-open") ? "nav.menuClose" : "nav.menuOpen"));
+  };
+
+  const setLanguage = (next, persist = true) => {
+    lang = SUPPORTED.includes(next) ? next : "en";
+    document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
+    document.documentElement.dataset.lang = lang;
+
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+      el.setAttribute("aria-label", t(el.dataset.i18nAriaLabel));
+    });
+
+    document.title = t("meta.title");
+    const description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute("content", t("meta.description"));
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", t("meta.title"));
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute("content", t("meta.description"));
+    const ogLocale = document.querySelector('meta[property="og:locale"]');
+    if (ogLocale) ogLocale.setAttribute("content", lang === "zh" ? "zh_TW" : "en_US");
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      const active = button.dataset.lang === lang;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+
+    updateMenuLabel();
+    if (window.FlappyPlane) window.FlappyPlane.refreshLanguage();
+    if (persist) {
+      try {
+        window.localStorage.setItem(STORAGE_LANG, lang);
+      } catch (err) {}
+    }
+    document.dispatchEvent(new CustomEvent("site:languagechange", { detail: { lang } }));
+  };
+
+  window.FlappyI18n = {
+    get lang() { return lang; },
+    t,
+    setLanguage
+  };
+
+  /* ------------------------------------------------------------ page utilities */
+
+  const header = document.getElementById("siteHeader");
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  const closeMenu = (returnFocus = false) => {
+    if (!header || !header.classList.contains("menu-open")) return;
+    header.classList.remove("menu-open");
+    if (menuToggle) {
+      menuToggle.setAttribute("aria-expanded", "false");
+      updateMenuLabel();
+      if (returnFocus) menuToggle.focus({ preventScroll: true });
+    }
+  };
+
+  const openMenu = () => {
+    if (!header || !menuToggle) return;
+    header.classList.add("menu-open");
+    menuToggle.setAttribute("aria-expanded", "true");
+    updateMenuLabel();
+  };
+
+  if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+      if (header.classList.contains("menu-open")) closeMenu();
+      else openMenu();
+    });
+  }
+
+  if (mobileMenu) {
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeMenu());
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    if (!header || !header.classList.contains("menu-open")) return;
+    if (!header.contains(event.target)) closeMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && header && header.classList.contains("menu-open")) {
+      closeMenu(true);
+    }
+  });
+
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* Language buttons */
+  document.querySelectorAll("[data-lang]").forEach((button) => {
+    button.addEventListener("click", () => {
+      setLanguage(button.dataset.lang);
+      closeMenu();
+    });
+  });
+
+  /* Play CTAs: scroll to the demo and start the game from the same gesture. */
+  document.querySelectorAll("[data-play]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      closeMenu();
+      const play = document.getElementById("play");
+      if (play) play.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "center" });
+      if (window.FlappyPlane) window.FlappyPlane.play();
+    });
+  });
+
+  /* Best score shown around the site. */
+  window.addEventListener("flappyplane:best", (event) => {
+    syncSiteBest(Number(event.detail && event.detail.best) || 0);
+  });
+  syncSiteBest();
+
+  /* FAQ: one open at a time. */
+  const faqItems = Array.from(document.querySelectorAll(".faq-item"));
+  faqItems.forEach((item) => {
+    item.addEventListener("toggle", () => {
+      if (!item.open) return;
+      faqItems.forEach((other) => {
+        if (other !== item) other.open = false;
+      });
+    });
+  });
+
+  /* Fullscreen game. */
+  const gameFrame = document.getElementById("gameFrame");
+  const fullscreenBtn = document.getElementById("fullscreenBtn");
+  const fullscreenExit = document.getElementById("fullscreenExit");
+  const canFullscreen = Boolean(gameFrame && document.fullscreenEnabled && gameFrame.requestFullscreen);
+
+  if (fullscreenBtn && !canFullscreen) fullscreenBtn.hidden = true;
+
+  const enterFullscreen = () => {
+    if (!canFullscreen) return;
+    gameFrame.requestFullscreen().catch(() => {});
+  };
+  const leaveFullscreen = () => {
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+  };
+  if (fullscreenBtn && canFullscreen) fullscreenBtn.addEventListener("click", enterFullscreen);
+  if (fullscreenExit) fullscreenExit.addEventListener("click", leaveFullscreen);
+
+  document.addEventListener("fullscreenchange", () => {
+    const active = document.fullscreenElement === gameFrame;
+    document.body.classList.toggle("is-game-fullscreen", active);
+    if (!active && fullscreenBtn && canFullscreen) fullscreenBtn.focus({ preventScroll: true });
+  });
+
+  /* Reveal-on-scroll, with a no-JS/no-observer fallback. */
+  const revealItems = Array.from(document.querySelectorAll(".reveal"));
+  if (!("IntersectionObserver" in window) || reducedMotion.matches) {
+    revealItems.forEach((el) => el.classList.add("is-visible"));
+  } else {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -30px 0px" }
+    );
+    revealItems.forEach((el) => revealObserver.observe(el));
+  }
+
+  /* Initial language: saved choice or browser preference. */
+  setLanguage(readLanguage(), false);
+  syncSiteBest();
+})();
+
+</script>
+<script>
+
 (() => {
   "use strict";
 
@@ -1066,6 +3229,8 @@
   const confettiEl = document.getElementById("confetti");
   const flashEl = document.getElementById("flash");
   const announcer = document.getElementById("announcer");
+
+  const tr = (key, vars) => (window.FlappyI18n ? window.FlappyI18n.t(key, vars) : key);
 
   /* ================================================================ helpers */
 
@@ -1243,6 +3408,11 @@
   let smokeTimer = 0;
   let dpr = 1;
   let lastFrame = 0;
+  let gameInView = true;
+  let currentMedalKey = "none";
+  let lastOverScore = 0;
+  let lastOverBest = 0;
+  let lastOverWasBest = false;
 
   const plane = { x: PLANE_X, y: 348, vy: 0, rot: 0, enginePhase: 0, landed: false };
   let towers = [];
@@ -1341,6 +3511,7 @@
     if (document.activeElement && typeof document.activeElement.blur === "function") {
       document.activeElement.blur();
     }
+    gameEl.focus({ preventScroll: true });
     plane.vy = THRUST_V * 0.82;
     plane.enginePhase = 0;
     spawnPuffs(plane.x - 22, plane.y + 4, 3);
@@ -1356,11 +3527,13 @@
     playBtn.focus({ preventScroll: true });
   }
 
-  function pauseGame() {
+  function pauseGame(silent = false) {
     if (mode !== "playing") return;
     setMode("paused");
-    audio.click();
-    pauseCard.focus({ preventScroll: true });
+    if (!silent) {
+      audio.click();
+      pauseCard.focus({ preventScroll: true });
+    }
   }
 
   function resumeGame() {
@@ -1379,11 +3552,11 @@
   }
 
   function medalFor(value) {
-    if (value >= 35) return { key: "platinum", label: "Platinum" };
-    if (value >= 20) return { key: "gold", label: "Gold" };
-    if (value >= 10) return { key: "silver", label: "Silver" };
-    if (value >= 3) return { key: "bronze", label: "Bronze" };
-    return { key: "none", label: "No medal" };
+    if (value >= 35) return { key: "platinum" };
+    if (value >= 20) return { key: "gold" };
+    if (value >= 10) return { key: "silver" };
+    if (value >= 3) return { key: "bronze" };
+    return { key: "none" };
   }
 
   function showGameOver() {
@@ -1397,22 +3570,31 @@
     syncBestLabels();
 
     const medal = medalFor(score);
+    const medalName = tr(`game.medals.${medal.key}`);
+    currentMedalKey = medal.key;
     medalEl.className = `medal medal--${medal.key}`;
-    medalEl.setAttribute("aria-label", medal.key === "none" ? "No medal" : `${medal.label} medal`);
-    medalLabel.textContent = medal.label;
+    medalEl.setAttribute(
+      "aria-label",
+      medal.key === "none" ? tr("game.medalAriaNone") : tr("game.medalAria", { medal: medalName })
+    );
+    medalLabel.textContent = medalName;
 
     finalScore.textContent = String(score);
     finalBest.textContent = String(best);
     newBestEl.classList.toggle("is-on", newBest);
 
+    lastOverScore = score;
+    lastOverBest = best;
+    lastOverWasBest = newBest;
     announcer.textContent = newBest
-      ? `Game over. New best score: ${score}.`
-      : `Game over. Score: ${score}. Best: ${best}.`;
+      ? tr("game.announceNewBest", { score })
+      : tr("game.announceScore", { score, best });
 
     setMode("over");
     overShownAt = performance.now();
 
     if (newBest) {
+      window.dispatchEvent(new CustomEvent("flappyplane:best", { detail: { best } }));
       window.setTimeout(() => {
         if (mode === "over") fireConfetti();
       }, 170);
@@ -2942,6 +5124,11 @@
   }
 
   function frame(now) {
+    if (!gameInView) {
+      lastFrame = now;
+      window.requestAnimationFrame(frame);
+      return;
+    }
     const elapsed = lastFrame ? (now - lastFrame) / 1000 : 0;
     lastFrame = now;
     const dt = Math.min(elapsed, 1 / 30);
@@ -2950,12 +5137,27 @@
     window.requestAnimationFrame(frame);
   }
 
+  function setupInView() {
+    if (!("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        gameInView = entry.isIntersecting;
+        if (!gameInView && mode === "playing") pauseGame(true);
+        if (gameInView) lastFrame = performance.now();
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(gameEl);
+  }
+
   /* ================================================================= input */
 
   function onPointerDown(event) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const target = event.target;
     if (target instanceof Element && target.closest("button")) return;
+    gameEl.focus({ preventScroll: true });
 
     if (mode === "playing") {
       event.preventDefault();
@@ -2971,6 +5173,19 @@
 
   function onKeyDown(event) {
     const key = event.code;
+    const target = event.target;
+
+    if (
+      target instanceof Element &&
+      target.closest("button, a, summary, input, textarea, select, [contenteditable='true']")
+    ) {
+      return;
+    }
+
+    const engaged =
+      gameEl.contains(document.activeElement) || gameEl.matches(":hover");
+    if (mode === "ready" && !engaged) return;
+    if (!gameInView && mode !== "playing" && mode !== "dying") return;
 
     if (key === "Space" || key === "ArrowUp" || key === "KeyW") {
       if (event.repeat) return;
@@ -3009,12 +5224,32 @@
   function syncSoundButton() {
     soundBtn.classList.toggle("is-muted", audio.muted);
     soundBtn.setAttribute("aria-pressed", String(audio.muted));
-    soundBtn.setAttribute("aria-label", audio.muted ? "Unmute sound" : "Mute sound");
+    soundBtn.setAttribute("aria-label", tr(audio.muted ? "game.unmute" : "game.mute"));
+  }
+
+  function refreshLanguage() {
+    gameEl.setAttribute("aria-label", tr("game.ariaGame"));
+    canvas.setAttribute("aria-label", tr("game.canvasAria"));
+    readyScreen.setAttribute("aria-label", tr("game.startScreen"));
+    pauseBtn.setAttribute("aria-label", tr("game.pause"));
+    syncSoundButton();
+
+    if (mode === "over") {
+      const medalName = tr(`game.medals.${currentMedalKey}`);
+      medalLabel.textContent = medalName;
+      medalEl.setAttribute(
+        "aria-label",
+        currentMedalKey === "none" ? tr("game.medalAriaNone") : tr("game.medalAria", { medal: medalName })
+      );
+      announcer.textContent = lastOverWasBest
+        ? tr("game.announceNewBest", { score: lastOverScore })
+        : tr("game.announceScore", { score: lastOverScore, best: lastOverBest });
+    }
   }
 
   function onVisibilityChange() {
     if (document.hidden) {
-      if (mode === "playing") pauseGame();
+      if (mode === "playing") pauseGame(true);
     } else {
       lastFrame = performance.now();
     }
@@ -3061,14 +5296,32 @@
 
   /* ================================================================== boot */
 
+  window.FlappyPlane = {
+    play() {
+      if (mode === "paused") resumeGame();
+      else startGame();
+    },
+    pause() {
+      pauseGame();
+    },
+    refreshLanguage,
+    getBest: () => best,
+    getMode: () => mode,
+    focusGame() {
+      gameEl.focus({ preventScroll: true });
+    }
+  };
+
   setupCanvas();
   syncBestLabels();
-  syncSoundButton();
+  refreshLanguage();
   setMode("ready");
+  setupInView();
   lastFrame = performance.now();
   render();
   window.requestAnimationFrame(frame);
 })();
+
 </script>
 </body>
 </html>
